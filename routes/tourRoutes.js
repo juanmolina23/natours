@@ -1,23 +1,11 @@
 const express = require("express")
 const router = express.Router()
-const mongoose = require("mongoose")
-const tourSchema = require("../schemas/tourSchema")
 
-const Tour = mongoose.model("Tour", tourSchema, "tours")
+const tourController = require("../controllers/tourController")
 
 // define the home page route
-router.get("/", function (req, res) {
-  res.send("Tours")
-})
+router.get("/", tourController.getAllTours)
 
-router.post("/add", (req, res) => {
-  const newTour = new Tour({
-    name: "The Forest Hiker",
-    rating: 4.7,
-    price: 497
-  })
-  newTour.save()
-  res.send("done")
-})
+router.post("/add", tourController.createTour)
 
 module.exports = router
